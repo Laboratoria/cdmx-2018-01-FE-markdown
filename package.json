@@ -1,0 +1,27 @@
+{
+  "name": "cdmx-2018-01-fe-markdown",
+  "version": "1.0.0",
+  "description": "librería para validar links en archivos markdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianaCarrillo/cdmx-2018-01-FE-markdown.git"
+  },
+  "keywords": [
+    "librería",
+    "markdown",
+    "links"
+  ],
+  "author": "Diana Carrillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DianaCarrillo/cdmx-2018-01-FE-markdown/issues"
+  },
+  "homepage": "https://github.com/DianaCarrillo/cdmx-2018-01-FE-markdown#readme",
+  "dependencies": {
+    "eslint": "^5.4.0"
+  }
+}
