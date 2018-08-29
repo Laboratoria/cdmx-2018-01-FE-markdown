@@ -1,0 +1,30 @@
+{
+  "name": "markdownlinks",
+  "version": "1.0.0",
+  "description": "Find and validate URLs in .md archives",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/florenciasilva/cdmx-2018-01-FE-markdown.git"
+  },
+  "keywords": [
+    "Markdown",
+    "links",
+    "URL",
+    "validate",
+    "stats"
+  ],
+  "author": "Florencia Silva Olivera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/florenciasilva/cdmx-2018-01-FE-markdown/issues"
+  },
+  "homepage": "https://github.com/florenciasilva/cdmx-2018-01-FE-markdown#readme",
+  "dependencies": {
+    "jest": "^23.5.0",
+    "node-fetch": "^2.2.0"
+  }
+}
