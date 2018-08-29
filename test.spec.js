@@ -1,4 +1,4 @@
-let util = require('./readme.js'); // Trae el archivo que se debe testear
+let util = require('./readme.js').default; // Trae el archivo que se debe testear
 
 describe('readFile function', () =>{
     it ('readFile ',()=>{
