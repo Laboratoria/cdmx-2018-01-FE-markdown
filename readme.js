@@ -5,7 +5,10 @@ const readFile = () =>{
         if (err) {
             console.log('Tienes un error, verifica'); 
         }else {
-         console.log(md);   
+            let data = md;
+            let regExp = /((http:\/\/|https:\/\/|www\.)[^\s]+)/gim;
+            let results = data.match(regExp)
+         console.log(results);   
         }
     })
 }
