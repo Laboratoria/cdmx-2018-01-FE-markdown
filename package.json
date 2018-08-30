@@ -1,8 +1,12 @@
 {
+  "license": "ISC",
   "devDependencies": {
     "jest": "^23.5.0"
   },
   "dependencies": {
     "eslint": "^5.4.0"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
