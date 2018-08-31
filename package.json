@@ -1,0 +1,22 @@
+{
+  "name": "cdmx-2018-01-fe-markdown",
+  "version": "1.0.0",
+  "description": "Read links markdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alterna87/cdmx-2018-01-FE-markdown.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alterna87/cdmx-2018-01-FE-markdown/issues"
+  },
+  "homepage": "https://github.com/Alterna87/cdmx-2018-01-FE-markdown#readme",
+  "dependencies": {
+    "jsdom": "^12.0.0"
+  }
+}
