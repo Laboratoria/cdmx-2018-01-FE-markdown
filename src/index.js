@@ -37,7 +37,7 @@ const reading = (data) =>{
   // }
 };
 
-reading();
+// reading();
 
 
 // Enviar data a un for para iterar por cada índice comparar con match
