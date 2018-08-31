@@ -6,12 +6,19 @@
 // });
 
 const mdLinks = require('../index.js');
+// mdLinksF = jest.fn();
 
 describe('Comprobar función mdLinks', () => {
   test('Esta definida', () => {
-    expect(mdLinks()).toBeDefined();
+    expect(mdLinks('path')).toBeDefined();
   });
   test('Es una función', () => {
     expect(typeof(mdLinks)).toEqual('function');
   });
+  // test('Es llamada con dos argumentos', () => {
+  //   expect(mdLinksF).toHaveBeenCalledWith(2);
+  // });
+  // test('Recibe un string como parámetro path', () => {
+  //   expect
+  // });
 });

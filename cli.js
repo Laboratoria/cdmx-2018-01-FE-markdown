@@ -44,7 +44,7 @@ const options = {
   'stats': argv.stats
 };
 
-console.log(options);
+// console.log(options);
 
 
 const mdLinks = require('./index');

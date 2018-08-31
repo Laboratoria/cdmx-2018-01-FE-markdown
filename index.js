@@ -16,14 +16,37 @@ const fetch = require('node-fetch');
 // Function to ensure that path is absolute
 const checkPathToAbsolute = (pathToCheck) => {
   const isAbsolute = path.isAbsolute(pathToCheck);
-  return isAbsolute;
+  if (isAbsolute) {
+    // console.log(isAbsolute);
+    return pathToCheck;
+  } else {
+    // console.log(isAbsolute);
+    pathToCheck = path.resolve(pathToCheck);
+    // console.log(path.isAbsolute(pathToCheck));
+    return pathToCheck;
+  }
+  // return isAbsolute;
+};
+
+// Function to check if a path exist
+const checkIfPathExist = (absolutePath) => {
+  if (fs.existsSync(absolutePath)) {
+    return true;
+  } else {
+    process.on('exit', () => {
+      console.log('ERROR: The path is incorrect or inexistent')
+    });
+    process.exit();
+  }
 };
 
 const mdLinks = (path, options) => {
   const absolutePath = checkPathToAbsolute(path);
-  console.log(absolutePath);
+  // console.log(absolutePath);
+  const pathExist = checkIfPathExist(absolutePath);
+  console.log(pathExist);
 
-  return `${path} ${options}`;
+  return `${path}`;
 };
 
 module.exports = mdLinks;
