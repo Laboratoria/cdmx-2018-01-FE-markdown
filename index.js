@@ -13,7 +13,16 @@ const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
 
+// Function to ensure that path is absolute
+const checkPathToAbsolute = (pathToCheck) => {
+  const isAbsolute = path.isAbsolute(pathToCheck);
+  return isAbsolute;
+};
+
 const mdLinks = (path, options) => {
+  const absolutePath = checkPathToAbsolute(path);
+  console.log(absolutePath);
+
   return `${path} ${options}`;
 };
 
