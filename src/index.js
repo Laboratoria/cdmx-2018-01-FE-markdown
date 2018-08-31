@@ -9,34 +9,35 @@ const readingFile = (callback) => {
     if (err) {
       console.log('Error');
     } else {
-      callback(data); 
+      callback(data);
+      reading(data); 
     }
   });
 };
-
-readingFile(callback = (data) => console.log(data));
 // } else {
 //   resolve(path);
 // }
+readingFile(callback = (data) => console.log(data));
 
-// let newArr = [];
-// const reading = (data) =>{
-//   for (i = 0; i < data.length; i++) {
-//     let string = data[i];  
-//     let matcher = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
-//     if (string === matcher) {
-//       string.push(newArr);
-//     }
-//   }
-// };
+let newArr = [];
+const reading = (data) =>{
+  console.log(typeof(data));
+  // String 
+  let fileToArr = data.split();
+  console.log(typeof(fileToArr));
+  //  Regresa undefined, por qué ya no lo lee?  : (( 
 
-// reading();
+  // fileToArr.forEach(line => {
+  //   let matcher = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
+  //   if (line === line.match(matcher)) {
+  //     newArr.push(line);
+  //   } else {
+  //  throw new Error('Line not valid');
+  // }
+  // }
+};
 
-// const callback = (file) =>{
-//   console.log(typeof(file));
-// };
-
-// callback();
+reading();
 
 
 // Enviar data a un for para iterar por cada índice comparar con match
@@ -51,12 +52,6 @@ readingFile(callback = (data) => console.log(data));
 //     return false;
 //   }
 // }
-
 // console.log(is_url('https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-9.php'));
-
-// const url = require('url');
-// const myURL =
-//   url.parse('https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-9.php');
-// console.log(myURL);
 
 
