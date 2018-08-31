@@ -1,4 +1,0 @@
-##HOLA
-
-##HOLA OTRA VEZ
-see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)
