@@ -1,31 +1,33 @@
 const fs = require('fs');
-const path = require('path');
-// const resolve = require('path').resolve;
+// const path = require('path');
+const resolve = require('path').resolve;
+// './README.md'
+// let path = './README.md';
 
 // Resolver ruta parcial a absoluta
-// if (path.isAbsolute() === true) {
-const readingFile = (callback) => {
+const mdLinks = (callback) => {
   fs.readFile('./README.md', 'utf8', (err, data) =>{
     if (err) {
       console.log('Error');
+    } else if (path.isAbsolute() !== true) {
+      resolve(path);
     } else {
       callback(data);
-      reading(data); 
+      reading(data);
     }
   });
 };
 // } else {
-//   resolve(path);
+//   
 // }
 readingFile(callback = (data) => console.log(data));
 
-let newArr = [];
+const newArr = [];
 const reading = (data) =>{
   console.log(typeof(data));
   // String 
   let fileToArr = data.split();
   console.log(typeof(fileToArr));
-  //  Regresa undefined, por qué ya no lo lee?  : (( 
 
   // fileToArr.forEach(line => {
   //   let matcher = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
@@ -38,7 +40,9 @@ const reading = (data) =>{
 };
 
 // reading();
-
+module.exports = {
+  mdLinks,
+};
 
 // Enviar data a un for para iterar por cada índice comparar con match
 // Si coincide, enviar a arreglo nuevo
