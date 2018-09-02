@@ -9,17 +9,24 @@ const data = (error, data) => {
     console.log('error:', error);
   } else {
     let link = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/g;
-    // let link = link.slice(0, -1);
+    let textLink = /\[(.*?)\]/g;
+    let matchedTextArray = data.match(textLink);
+    // console.log(matchedTextArray);
+    
     let matchedLinksArray = data.match(link);
-    // console.log(matchedLinksArray);
     matchedLinksArray.forEach(element => { 
       let cleanElement = element.slice(0, -1);
-      console.log(cleanElement);
-      // absolutePath();
+      // console.log(cleanElement);
+      for (i = 0;i < cleanElement.length;i++) {
+        if ((cleanElement[i]) === ')') {
+          console.log(cleanElement);
+        }
+      }
       // console.log(path.isAbsolute('./README.md'));
       // console.log(path.resolve('./README.md'));
     });
   }
+  // absolutePath();
 };
 
 
@@ -29,11 +36,11 @@ const data = (error, data) => {
 
 fs.readFile('./README.md', 'utf8', data);
 
-// const absolutePath = () =>{
-//   console.log(path.isAbsolute('./README.md'));
-// };
+const absolutePath = () =>{
+  console.log(path.isAbsolute('./README.md'));
+};
 
-const mdLinks = () => {
+const mdLinks = (path, options) => {
   return 'test';
 };
 
