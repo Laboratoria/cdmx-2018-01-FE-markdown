@@ -16,16 +16,14 @@ const data = (error, data) => {
     const newArrayFunction = matchedRegEx.map(element => { 
       // split is taking away  "[]" and "()"" because we don't need those characters in our object "     // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
       let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
+      let url = splittingElement[2];
+      let urlText = splittingElement[1];
       // because we need to retun an array of objects, i declared an object that has the obtained elements as values of the href and and the text
       const object = {
-        href: splittingElement[2],
-        text: splittingElement[1],
-        status: null
+        href: url,
+        text: urlText
       };
-      fetch(splittingElement[2]).then((res=>{
-        console.log(res);
-      }
-      ));
+      status(url, urlText);
       return object;
     });
     // console.log(newArrayFunction);    
@@ -34,6 +32,16 @@ const data = (error, data) => {
 };
 
 fs.readFile('./README.md', 'utf8', data);
+
+const status = (url, urlText) =>{
+  // console.log(url);
+  fetch(url).then((res=>{
+    let linkStatus = res.status;
+    let statusText = res.statusText;
+    console.log(url, statusText, linkStatus, urlText);
+  }
+  ));
+};
 
 const absolutePath = () =>{
   let actualPath = path.isAbsolute('./README.md');
