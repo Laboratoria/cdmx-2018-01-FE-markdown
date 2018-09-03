@@ -8,7 +8,6 @@ const mdLink = (path) => {
 
 return new Promise((resolve, reject) => {
 
-
 const data = fs.readFileSync(path, 'utf8');
 const tokens = marked.lexer(data);
 const html = marked.parser(tokens);
