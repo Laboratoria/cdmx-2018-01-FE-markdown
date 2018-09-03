@@ -3,6 +3,7 @@
 // requirig file system module, path module
 let fs = require('fs');
 const path = require('path');
+const fetch = require('node-fetch');
 
 const data = (error, data) => {
   if (error) {
@@ -10,11 +11,10 @@ const data = (error, data) => {
   } else {
     //  we want our regex to find "[text] (https://www.)" 
     let regEx = /\[([^\[\]]*)\]\(((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}))\)/g;
-    //  matchedLinksArray is matching the data with the regex
+    //  matchedLinksArray is matching the regex with the specific pieces of data.
     let matchedRegEx = data.match(regEx);
     const newArrayFunction = matchedRegEx.map(element => { 
-      // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
-      // split is taking away  "[]" and "()"" because we don't need those characters in our object "
+      // split is taking away  "[]" and "()"" because we don't need those characters in our object "     // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
       let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
       // because we need to retun an array of objects, i declared an object that has the obtained elements as values of the href and and the text
       const object = {
@@ -22,9 +22,13 @@ const data = (error, data) => {
         text: splittingElement[1],
         status: null
       };
+      fetch(splittingElement[2]).then((res=>{
+        console.log(res);
+      }
+      ));
       return object;
     });
-    console.log(newArrayFunction);    
+    // console.log(newArrayFunction);    
   }
   // absolutePath();
 };
