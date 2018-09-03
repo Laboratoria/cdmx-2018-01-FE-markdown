@@ -8,12 +8,13 @@ const data = (error, data) => {
   if (error) {
     console.log('error:', error);
   } else {
-    //  This regex is delimiting that the specific extracts containes "[text] (https://www.)" 
-    let link = /\[([^\[\]]*)\]\(((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}))\)/g;
+    //  we want our regex to find "[text] (https://www.)" 
+    let regEx = /\[([^\[\]]*)\]\(((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}))\)/g;
     //  matchedLinksArray is matching the data with the regex
-    let matchedLinksArray = data.match(link);
-    const newArray = matchedLinksArray.map(element => { 
-      // console.log(splittingElement) will show us 4 elements in the array (2 elements are empty spaces). this method is splitting the txt from the href and making them 2 different elements in the array
+    let matchedRegEx = data.match(regEx);
+    const newArrayFunction = matchedRegEx.map(element => { 
+      // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
+      // split is taking away  "[]" and "()"" because we don't need those characters in our object "
       let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
       // because we need to retun an array of objects, i declared an object that has the obtained elements as values of the href and and the text
       const object = {
@@ -23,7 +24,7 @@ const data = (error, data) => {
       };
       return object;
     });
-    // console.log(newArray);    
+    console.log(newArrayFunction);    
   }
   // absolutePath();
 };
