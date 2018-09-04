@@ -14,7 +14,7 @@ const data = (error, data) => {
     //  matchedLinksArray is matching the regex with the specific pieces of data.
     let matchedRegEx = data.match(regEx);
     const newArrayFunction = matchedRegEx.map(element => { 
-      // split is taking away  "[]" and "()"" because we don't need those characters in our object "     // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
+      // split is taking away  "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
       let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
       let url = splittingElement[2];
       let urlText = splittingElement[1];
@@ -26,6 +26,7 @@ const data = (error, data) => {
       status(url, urlText);
       return object;
     });
+    statistics(matchedRegEx);
     // console.log(newArrayFunction);    
   }
   // absolutePath();
@@ -34,20 +35,37 @@ const data = (error, data) => {
 fs.readFile('./README.md', 'utf8', data);
 
 const status = (url, urlText) =>{
-  // console.log(url);
   fetch(url).then((res=>{
     let linkStatus = res.status;
     let statusText = res.statusText;
-    console.log(url, statusText, linkStatus, urlText);
+    // console.log(url, statusText, linkStatus, urlText);
   }
   ));
+};
+
+
+const statistics = (matchedRegEx) =>{
+  let totalUrls = matchedRegEx.length;
+  let counterUnique = matchedRegEx.length;
+  for (j = 0; j <= matchedRegEx.length; j++) { 
+    for (i = 0; i <= matchedRegEx.length; i++) {
+      // console.log(matchedRegEx[i]);
+      if (i !== j && matchedRegEx[j] === matchedRegEx[i] && matchedRegEx[j].length === matchedRegEx[i].length) {
+        counterUnique--;
+        // console.log(matchedRegEx[i]);     
+      }
+    }
+  }
+  // console.log(element);
+  console.log(`Total : ${totalUrls}
+Unique : ${counterUnique}`);
 };
 
 const absolutePath = () =>{
   let actualPath = path.isAbsolute('./README.md');
   if ((actualPath) === false) {
     let newAbsolutePath = actualPath.resolve(); 
-    console.log(newAbsolutePath);
+    // console.log(newAbsolutePath);
   }
 };
 
