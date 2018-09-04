@@ -4,7 +4,7 @@
   "description": "Libreria que lee y analiza una archivo en formato Markdown para verificar que los links tengan respuesta.",
   "main": "readme.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -18,12 +18,16 @@
   ],
   "author": "Génesis Mauries",
   "license": "MIT",
+  "bin": {
+    "mdLinks": "./cli.js"
+  },
   "bugs": {
     "url": "https://github.com/GenesisMauries/cdmx-2018-01-FE-markdown/issues"
   },
   "homepage": "https://github.com/GenesisMauries/cdmx-2018-01-FE-markdown#readme",
   "dependencies": {
-    "eslint": "^5.4.0"
+    "eslint": "^5.4.0",
+    "node-fetch": "^2.2.0"
   },
   "devDependencies": {
     "jest": "^23.5.0"
