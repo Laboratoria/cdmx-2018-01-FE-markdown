@@ -2,12 +2,10 @@ const fs = require('fs');
 const marked = require('marked');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-
 const mdLink = (path) => {
-// Retornaremos una promesa con la funciónote
+// Retornaremos una promesa con la función
 
 return new Promise((resolve, reject) => {
-
 const data = fs.readFileSync(path, 'utf8');
 const tokens = marked.lexer(data);
 const html = marked.parser(tokens);
@@ -27,8 +25,6 @@ for (let i = 0; i < links.length; i++) {
   }
 
   console.log(arrayData);
-
-
 
 });
 };

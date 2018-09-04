@@ -10,4 +10,5 @@ let path = './textprob.md';
 mdLink(path)
 .then(archivo =>  console.log(archivo))
 .catch(console.error());
-  // console.log(mdLink('./textprob.md'));
+
+// Segunda función
