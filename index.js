@@ -23,10 +23,10 @@ const data = (error, data) => {
         href: url,
         text: urlText
       };
-      status(url, urlText);
+      validate(url, urlText);
       return object;
     });
-    statistics(matchedRegEx);
+    stats(matchedRegEx);
     // console.log(newArrayFunction);    
   }
   // absolutePath();
@@ -34,7 +34,8 @@ const data = (error, data) => {
 
 fs.readFile('./README.md', 'utf8', data);
 
-const status = (url, urlText) =>{
+// function to obtain links' statistics 
+const validate = (url, urlText) =>{
   fetch(url).then((res=>{
     let linkStatus = res.status;
     let statusText = res.statusText;
@@ -43,23 +44,21 @@ const status = (url, urlText) =>{
   ));
 };
 
-
-const statistics = (matchedRegEx) =>{
+// function to obtain total of links and unique links
+const stats = (matchedRegEx) =>{
   let totalUrls = matchedRegEx.length;
   let counterUnique = matchedRegEx.length;
   for (j = 0; j <= matchedRegEx.length; j++) { 
     for (i = 0; i <= matchedRegEx.length; i++) {
-      // console.log(matchedRegEx[i]);
       if (i !== j && matchedRegEx[j] === matchedRegEx[i] && matchedRegEx[j].length === matchedRegEx[i].length) {
         counterUnique--;
-        // console.log(matchedRegEx[i]);     
       }
     }
   }
-  // console.log(element);
   console.log(`Total : ${totalUrls}
 Unique : ${counterUnique}`);
 };
+
 
 const absolutePath = () =>{
   let actualPath = path.isAbsolute('./README.md');
