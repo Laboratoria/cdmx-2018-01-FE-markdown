@@ -9,9 +9,17 @@
 'use strict';
 
 // Require nodejs modules
-const fs = require('fs');
-const path = require('path');
-const fetch = require('node-fetch');
+const fs = require('fs'); // Allow to use the fs module
+const path = require('path'); // Allow to use the path module
+const markdownIt = require('markdown-it'); // Allow to use markdown-it library
+// Create a new MarkdownIt with the rules that allow convert the text into links
+const md = new markdownIt({
+  html: true, // Enable HTML tags in source
+  linkify: true // Autoconvert URL-like text to links
+});
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+// const fetch = require('node-fetch');
 
 // Function to ensure that path is absolute
 const checkPathToAbsolute = (pathToCheck) => {
@@ -33,26 +41,62 @@ const checkIfPathExist = (absolutePath) => {
   if (fs.existsSync(absolutePath)) {
     return true;
   } else {
-    process.on('exit', () => {
-      console.log('ERROR: The path is incorrect or inexistent')
-    });
-    process.exit();
-  }
+    return false;
+  };
+};
+
+const readMarkdownFile = (filePath) => {
+  return fs.readFileSync(filePath, 'utf8');
+};
+
+const convertMdToHtml = (readedFile) => {
+  return md.render(readedFile);
+};
+
+const getTags = (htmlFile) => {
+  const dom = new JSDOM(htmlFile);
+  const linkTags = dom.window.document.getElementsByTagName('a');
+  return linkTags;
+};
+
+const getInfoTags = (tagsCollection, absolutePath, links, linkObj) => {
+  Array.from(tagsCollection).forEach(tag => {
+    // console.log(`${tag.href} + ${tag.text}`);
+    linkObj = {
+      href: tag.href,
+      text: tag.text,
+      file: absolutePath
+    };
+    links.push(linkObj);
+  });
+  return links;
 };
 
 const mdLinks = (path, options) => {
-  const absolutePath = checkPathToAbsolute(path);
-  // console.log(absolutePath);
-  const pathExist = checkIfPathExist(absolutePath);
-  console.log(pathExist);
+  const links = [];
+  const linkObj = {};
 
-  return `${path}`;
+  const absolutePath = checkPathToAbsolute(path);
+  // console.log(`The absolute path is: ${absolutePath}`);
+  checkIfPathExist(absolutePath);
+  // const pathExist = checkIfPathExist(absolutePath);
+  // console.log('The path exist? ' + pathExist);
+
+  const readedFile = readMarkdownFile(absolutePath);
+  const convertedFile = convertMdToHtml(readedFile);
+  const tags = getTags(convertedFile);
+  const basicInfo = getInfoTags(tags, absolutePath, links, linkObj);
+  console.log(basicInfo);
+
+  // console.log(readedFile);
+  // console.log(convertedFile);
+
+  return `The original path was: ${path}`;
 };
 
 module.exports = mdLinks;
 
-// Allow to use the fs module
-// const fs = require('fs');
+
 // Allow to use the markdown-link-extractor module
 // const markdownLinkExtractor = require('markdown-link-extractor');
 

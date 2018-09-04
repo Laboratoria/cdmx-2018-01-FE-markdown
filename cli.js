@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Make the file executable
 
 // Require yargs
 const yargs = require('yargs');

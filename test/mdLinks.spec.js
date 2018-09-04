@@ -10,7 +10,7 @@ const mdLinks = require('../index.js');
 
 describe('Comprobar función mdLinks', () => {
   test('Esta definida', () => {
-    expect(mdLinks('path')).toBeDefined();
+    expect(mdLinks('test')).toBeDefined();
   });
   test('Es una función', () => {
     expect(typeof(mdLinks)).toEqual('function');
