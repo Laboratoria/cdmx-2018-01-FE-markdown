@@ -14,8 +14,10 @@ const data = (error, data) => {
     //  matchedLinksArray is matching the regex with the specific pieces of data.
     let matchedRegEx = data.match(regEx);
     const newArrayFunction = matchedRegEx.map(element => { 
-      // split is taking away  "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
+      // split is separating the text and the href//  in que regex we are takind away "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
       let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
+      console.log(splittingElement);
+      // console.log(splittingElement);
       let url = splittingElement[2];
       let urlText = splittingElement[1];
       // because we need to retun an array of objects, i declared an object that has the obtained elements as values of the href and and the text
@@ -39,7 +41,7 @@ const validate = (url, urlText) =>{
   fetch(url).then((res=>{
     let linkStatus = res.status;
     let statusText = res.statusText;
-    // console.log(url, statusText, linkStatus, urlText);
+    console.log(url, statusText, linkStatus, urlText);
   }
   ));
 };

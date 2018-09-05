@@ -17,6 +17,9 @@
   ],
   "author": "Diana Carrillo",
   "license": "ISC",
+  "bin": {
+    "md-links": "index.js"
+  },
   "bugs": {
     "url": "https://github.com/DianaCarrillo/cdmx-2018-01-FE-markdown/issues"
   },
