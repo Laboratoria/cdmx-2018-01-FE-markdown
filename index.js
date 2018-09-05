@@ -1,11 +1,3 @@
-// Function to test Jest
-// const suma = require('./lib/mdLinks');
-
-// function sum(elementA, elementB) {
-//   return elementA + elementB;
-// }
-// module.exports = sum;
-
 'use strict';
 
 // Require nodejs modules
@@ -17,23 +9,14 @@ const md = new markdownIt({
   html: true, // Enable HTML tags in source
   linkify: true // Autoconvert URL-like text to links
 });
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const jsdom = require('jsdom'); // Allow to use jsdom library
+const { JSDOM } = jsdom; // Simulate a new DOM and allow us to work with it
 // const fetch = require('node-fetch');
 
 // Function to ensure that path is absolute
 const checkPathToAbsolute = (pathToCheck) => {
-  const isAbsolute = path.isAbsolute(pathToCheck);
-  if (isAbsolute) {
-    // console.log(isAbsolute);
-    return pathToCheck;
-  } else {
-    // console.log(isAbsolute);
-    pathToCheck = path.resolve(pathToCheck);
-    // console.log(path.isAbsolute(pathToCheck));
-    return pathToCheck;
-  }
-  // return isAbsolute;
+  pathToCheck = path.resolve(pathToCheck);
+  return pathToCheck;
 };
 
 // Function to check if a path exist
@@ -64,12 +47,25 @@ const getInfoTags = (tagsCollection, absolutePath, links, linkObj) => {
     // console.log(`${tag.href} + ${tag.text}`);
     linkObj = {
       href: tag.href,
-      text: tag.text,
+      text: tag.text.slice(0, 50),
       file: absolutePath
     };
     links.push(linkObj);
   });
   return links;
+};
+
+const processAnswer = (basicInfo) => {
+  let returnedAnswer = '';
+  basicInfo.forEach(element => {
+    returnedAnswer += `${element.file}  ${element.href}  ${element.text}
+`;
+  });
+  return returnedAnswer;
+};
+
+const validateLinks = (linksArray) => {
+  // linksArray.
 };
 
 const mdLinks = (path, options) => {
@@ -85,13 +81,19 @@ const mdLinks = (path, options) => {
   const readedFile = readMarkdownFile(absolutePath);
   const convertedFile = convertMdToHtml(readedFile);
   const tags = getTags(convertedFile);
-  const basicInfo = getInfoTags(tags, absolutePath, links, linkObj);
-  console.log(basicInfo);
+  const basicInfo = getInfoTags(tags, path, links, linkObj);
+  const answer = processAnswer(basicInfo);
+  if (options.validate === false && options.stats === false) {
+    return answer;
+  } else if (options.validate === true && options.stats === false) {
+    answer = validateLinks(answer);
+  }
+  // console.log(basicInfo);
 
   // console.log(readedFile);
   // console.log(convertedFile);
 
-  return `The original path was: ${path}`;
+  return answer;
 };
 
 module.exports = mdLinks;
