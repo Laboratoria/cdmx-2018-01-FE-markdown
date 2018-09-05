@@ -1,6 +1,6 @@
 # Prueba de lectura
 
-Este es un ejercico para verificar si he aprendido algo de lo que he leido en estas ultimas 72 horas ininterrumpidas (LOL)
+Este es un ejercico para verificar si he aprendido algo de lo que he leido en estas ultimas 100 horas ininterrumpidas (LOL)
 
 ## Links de mis traumas
 - [Melendi](https://www.melendioficial.com/) 
@@ -8,3 +8,4 @@ Este es un ejercico para verificar si he aprendido algo de lo que he leido en es
 - [Laboratoria](http://www.laboratoria.la/)
 - [Gic Toner](http://gictoner.mx/)
 - [Harry Potter](https://www.pottermore.com/)
+
