@@ -13,3 +13,10 @@ describe('runArray is a function', () =>{
     // expect espera que lo que esta entre parentesis sea igual a toBe y sus parentesis
   });
 });
+
+describe('onlyLinks is a function', () =>{
+  it('onlyLinks ', ()=>{
+    expect(true).toBe(true);
+    // expect espera que lo que esta entre parentesis sea igual a toBe y sus parentesis
+  });
+});
