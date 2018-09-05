@@ -11,7 +11,8 @@ const md = new markdownIt({
 });
 const jsdom = require('jsdom'); // Allow to use jsdom library
 const { JSDOM } = jsdom; // Simulate a new DOM and allow us to work with it
-// const fetch = require('node-fetch');
+const fetch = require('node-fetch');
+const request = require('request');
 
 // Function to ensure that path is absolute
 const checkPathToAbsolute = (pathToCheck) => {
@@ -42,15 +43,55 @@ const getTags = (htmlFile) => {
   return linkTags;
 };
 
+// Trying with request again
+
+const validateLinks = (url, obj) => {
+  fetch(url)
+    .then((res) => {
+      // obj.status = res.status;
+      // obj.statusText = res.statusText;
+      const response = [res.status, res.statusText];
+      console.log(response);
+      return response;
+    })
+    .catch((err) => {
+      err = new Error('Not Found');
+      err.status = 404;
+      err.statusText = 'Not Found';
+      // obj.status = err.status;
+      // obj.statusText = err.statusText;
+      const response = [err.status, err.statusText];
+      console.log(response);
+      return response;
+      // console.log(err.status);
+      // return obj;
+    });
+
+  // request(url, (err, res) => {
+  //   if (err) {
+  //     return err.code;
+  //   }
+  //   res.statusCode;
+
+  //   const response = [res.statusCode, res.statusMessage];
+  //   return response;
+  // });
+};
+
 const getInfoTags = (tagsCollection, absolutePath, links, linkObj) => {
+  const exp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
   Array.from(tagsCollection).forEach(tag => {
     // console.log(`${tag.href} + ${tag.text}`);
-    linkObj = {
-      href: tag.href,
-      text: tag.text.slice(0, 50),
-      file: absolutePath
-    };
-    links.push(linkObj);
+    if (tag.href.match(exp)) {
+      linkObj = {
+        href: tag.href,
+        text: tag.text.slice(0, 50),
+        file: absolutePath,
+        status: '',
+        statusText: ''
+      };
+      links.push(linkObj);
+    }
   });
   return links;
 };
@@ -64,13 +105,89 @@ const processAnswer = (basicInfo) => {
   return returnedAnswer;
 };
 
-const validateLinks = (linksArray) => {
-  // linksArray.
+// Trying with ES2017 async/await function
+
+// const requestAsync = (link) => {
+//   return new Promise((resolve, reject) => {
+//     const req = request(url, (err, response, body) => {
+//       if (err) {
+//         return reject(err, response, body);
+//       }
+//       resolve(JSON.parse(body));
+//     });
+//   });
+// };
+
+// async function getResponse(links) {
+//   try {
+//     let response = await Promise.all(links.map(requestAsync));
+//   } catch (err) {
+//     console.log(err);
+//   }
+//   return response;
+// };
+
+// const validateLinks = (linksArray) => {
+//   const responses = [];
+//   for (const link of linksArray) {
+//     responses.push(link.href);
+//   }
+//   console.log(getResponse(responses));
+//   return 'hola';
+// };
+// ------------------------------------------
+
+// Trying with fetch
+
+// const getResponse = (url) => {
+//   // console.log(url);
+//   let response = fetch(url)
+//     .then((res) => {
+//       console.log(res.status);
+//       return res.status;
+//     }).catch((err) => {
+//       console.log('Error al hacer el fetch');
+//     });
+
+//   console.log('Respuesta: ' + response);
+
+//   return response;
+
+// const response = Promise.all(fetch(url)
+// );
+// const response = Promise.all(urls.map((url) => {
+//   return fetch(url)
+//     .then((res) => {
+//       Promise.all(console.log(res.status));
+//     });
+// }));
+// // console.log(response);
+// return response;
+// };
+
+// const validateLinks = (linksArray) => {
+//   // const responses = [];
+//   for (const link of linksArray) {
+//     getResponse(link.href);
+//     // responses.push(link.href);
+//   }
+//   // console.log(responses);
+//   // return getResponse(responses[0]);
+// };
+// ------------------------------------------
+
+const processAnswerValidate = (basicInfo) => {
+  // console.log(validateLinks(tag.href, linkObj));
+  basicInfo.map(obj =>{
+    validateLinks(obj.href);
+  });
+  // return basicInfo;
 };
 
 const mdLinks = (path, options) => {
   const links = [];
   const linkObj = {};
+  let answer = '';
 
   const absolutePath = checkPathToAbsolute(path);
   // console.log(`The absolute path is: ${absolutePath}`);
@@ -82,11 +199,12 @@ const mdLinks = (path, options) => {
   const convertedFile = convertMdToHtml(readedFile);
   const tags = getTags(convertedFile);
   const basicInfo = getInfoTags(tags, path, links, linkObj);
-  const answer = processAnswer(basicInfo);
   if (options.validate === false && options.stats === false) {
+    answer = processAnswer(basicInfo);
     return answer;
   } else if (options.validate === true && options.stats === false) {
-    answer = validateLinks(answer);
+    // console.log(links);
+    answer = processAnswerValidate(basicInfo);
   }
   // console.log(basicInfo);
 
