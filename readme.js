@@ -14,22 +14,34 @@ const checkRute = (ruta) =>{
 };
 checkRute('./README.md');
 
-
 // Funcion encargada de leer y obtener los links del readme
 const readFile = () => {
   fs.readFile('README.md', 'utf-8', callback = (err, md) => {
     if (err) {
       console.log('Tienes un error, verifica');
     } else {
-      let data = md;
-      let regExp = /(http:\/\/|https:\/\/|www\.)[^\s][^)]+/g;
-      let results = data.match(regExp);
+      const data = md;
+      const regExp = /(http:\/\/|https:\/\/|www\.)[^\s][^)]+/g;
+      const results = data.match(regExp);
       runArray(results);
+      onlyLinks(results);
       // console.log(results);
+      // console.log(onlyLinks(results));
     }
   });
 };
 readFile();
+
+// Funcion encargada de mostrar los links como lineas de texto plano 
+const onlyLinks = (results) => {
+  let onlyTxt = '';
+  for (let x = 0; x < results.length; x++) {
+    onlyTxt += results[x] + '\n';
+  }
+  // console.log(onlyTxt);
+  return onlyTxt;
+};
+
 
 // Funcion encargada de iterar el array y obtener las promesas
 const runArray = (results) => {
@@ -40,12 +52,13 @@ const runArray = (results) => {
         href: res.url,
         status: res.status,
       });
-      console.log(newArray);
+      // console.log(newArray);
     });
   }
 };
 
 module.exports = {
   readFile,
-  runArray
+  runArray,
+  onlyLinks
 };
