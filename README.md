@@ -8,4 +8,4 @@ Este es un ejercico para verificar si he aprendido algo de lo que he leido en es
 - [Laboratoria](http://www.laboratoria.la/)
 - [Gic Toner](http://gictoner.mx/)
 - [Harry Potter](https://www.pottermore.com/)
-- [rot](http://httd.apache.org/)
+
