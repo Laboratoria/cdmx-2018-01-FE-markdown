@@ -12,7 +12,7 @@ const md = new markdownIt({
 const jsdom = require('jsdom'); // Allow to use jsdom library
 const { JSDOM } = jsdom; // Simulate a new DOM and allow us to work with it
 const fetch = require('node-fetch');
-const request = require('request');
+// const request = require('request');
 
 // Function to ensure that path is absolute
 const checkPathToAbsolute = (pathToCheck) => {
@@ -41,41 +41,6 @@ const getTags = (htmlFile) => {
   const dom = new JSDOM(htmlFile);
   const linkTags = dom.window.document.getElementsByTagName('a');
   return linkTags;
-};
-
-// Trying with request again
-
-const validateLinks = (url, obj) => {
-  fetch(url)
-    .then((res) => {
-      // obj.status = res.status;
-      // obj.statusText = res.statusText;
-      const response = [res.status, res.statusText];
-      console.log(response);
-      return response;
-    })
-    .catch((err) => {
-      err = new Error('Not Found');
-      err.status = 404;
-      err.statusText = 'Not Found';
-      // obj.status = err.status;
-      // obj.statusText = err.statusText;
-      const response = [err.status, err.statusText];
-      console.log(response);
-      return response;
-      // console.log(err.status);
-      // return obj;
-    });
-
-  // request(url, (err, res) => {
-  //   if (err) {
-  //     return err.code;
-  //   }
-  //   res.statusCode;
-
-  //   const response = [res.statusCode, res.statusMessage];
-  //   return response;
-  // });
 };
 
 const getInfoTags = (tagsCollection, absolutePath, links, linkObj) => {
@@ -175,11 +140,61 @@ const processAnswer = (basicInfo) => {
 //   // return getResponse(responses[0]);
 // };
 // ------------------------------------------
+const printResult = (obj) => {
+  return console.log(obj);
+};
 
 const processAnswerValidate = (basicInfo) => {
   // console.log(validateLinks(tag.href, linkObj));
-  basicInfo.map(obj =>{
-    validateLinks(obj.href);
+  // basicInfo.forEach(obj => {
+  //   fetch(obj.href)
+  //     .then((res) => {
+  //       obj.status = res.status;
+  //       obj.statusText = res.statusText;
+  //       return printResult(obj);
+  //       // const response = [res.status, res.statusText];
+  //       // console.log(response);
+  //       // return response;
+  //     })
+  //     .catch((err) => {
+  //       err = new Error('Not Found');
+  //       err.status = 404;
+  //       err.statusText = 'Not Found';
+  //       obj.status = err.status;
+  //       obj.statusText = err.statusText;
+  //       return printResult(obj);
+  //       // const response = [err.status, err.statusText];
+  //       // console.log(response);
+  //       // return response;
+  //       // // console.log(err.status);
+  //       // // return obj;
+  //     });
+  // });
+  // // return basicInfo;
+
+  return basicInfo.map(obj => {
+    fetch(obj.href)
+      .then((res) => {
+        obj.status = res.status;
+        obj.statusText = res.statusText;
+        return printResult(obj);
+        // const response = [res.status, res.statusText];
+        // console.log(response);
+        // return response;
+      })
+      .catch((err) => {
+        err = new Error('Not Found');
+        err.status = 404;
+        err.statusText = 'Not Found';
+        obj.status = err.status;
+        obj.statusText = err.statusText;
+        return printResult(obj);
+        // const response = [err.status, err.statusText];
+        // console.log(response);
+        // return response;
+        // // console.log(err.status);
+        // // return obj;
+      });
   });
   // return basicInfo;
 };
@@ -200,18 +215,17 @@ const mdLinks = (path, options) => {
   const tags = getTags(convertedFile);
   const basicInfo = getInfoTags(tags, path, links, linkObj);
   if (options.validate === false && options.stats === false) {
-    answer = processAnswer(basicInfo);
-    return answer;
-  } else if (options.validate === true && options.stats === false) {
+    return processAnswer(basicInfo);
+  } else if (options.validate === true || options.stats === true) {
     // console.log(links);
-    answer = processAnswerValidate(basicInfo);
+    return processAnswerValidate(basicInfo);
   }
   // console.log(basicInfo);
 
   // console.log(readedFile);
   // console.log(convertedFile);
 
-  return answer;
+  // return answer;
 };
 
 module.exports = mdLinks;
