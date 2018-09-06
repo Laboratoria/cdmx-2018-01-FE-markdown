@@ -39,15 +39,27 @@ desarrollador porque que te obliga a pensar en la interfaz (API) de tus _módulo
 y como será usado por otros developers, debes tener especial consideración en
 peculiaridades del lenguaje, convenciones y buenas prácticas.
 
-## Consideraciones para instalar
+## Consideraciones generales
 
-El primer paso para obtener esta librería debes de clonar este repositorio, para eso debes de ejecutar en tu consola de cualquier sistema operativo:
+Este proyecto se debe "resolver" de manera individual.
+La librería debe estar implementada en JavaScript para ser ejecutada con
+Node.js.
 
-`git clone https://github.com/Alterna87/cdmx-2018-01-FE-markdown.git`
+## Parte obligatoria
 
-Despues de que contamos con el repositorio clonado, seguimos para instalar las dependencias que ocupamos para eso necesitas ejecutar el siguiente comando
+Módulo instalable via `npm install <github-user>/md-links`. Este módulo debe
+incluir tanto un ejecutable (_archivo cli_) que podamos invocar en
+la línea de comando como una interfaz que podamos importar con `require`
+para usarlo programáticamente.
 
-`npm install`
+Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_,
+_lines_ y _branches_. Te recomendamos explorar [Jest](https://jestjs.io/)
+para tus pruebas unitarias.
 
+Para comenzar este proyecto tendrás que hacer un _fork_ y _clonar_ este
+repositorio.
 
-Debido a que es la primera versión de nuestra librería sólo así podemos instalarla por el momento.
+Antes de comenzar a codear, es necesario crear un plan de acción. Esto debería
+quedar detallado en el `README.md` de tu repo y en una serie de _issues_
+y _milestones_ para priorizar y organizar el trabajo, y para poder hacer
+seguimiento de tu progreso.
