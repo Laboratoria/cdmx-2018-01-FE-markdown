@@ -38,7 +38,7 @@ let commands = yargs
   .argv;
 
 //"jsdom": "^12.0.0"
-console.log(commands);
+console.log(commands.validate);
 
 
 let path = commands._[0];
@@ -49,15 +49,18 @@ console.log(path);
 
 //'./textprob.md';
 
-// if (command == 'validate') {
-//   console.log('argv: validate');
-// } else if (command == 'stats') {
-//   console.log('argv: stats');
-// } else {
-//   mdLink(path)
-//   .then(archivo =>  console.log('Option de default'))
-//   .catch(console.error());
-// }
+if (commands.validate) {
+  console.log('argv: validate');
+} else if (commands.stats) {
+  console.log('argv: stats');
+}
+
+else {
+
+  mdLink(path)
+  .then(archivo =>  console.log(archivo))
+  .catch(console.error());
+}
 //
 // // Primera función
 // mdLink(path)

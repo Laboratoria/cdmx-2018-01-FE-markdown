@@ -38,7 +38,9 @@ return new Promise((resolve, reject) => {
 });
 };
 
-
+const validateLink =(path, options)=> {
+return console.log('argv: validate');
+}
 
 
 module.exports = {
