@@ -1,0 +1,27 @@
+{
+  "name": "markdown-links",
+  "version": "1.0.0",
+  "description": "librería que proporciona el estatus de los links incluidos en el documento .md",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JudithCortes/cdmx-2018-01-FE-markdown.git"
+  },
+  "keywords": [
+    "markdown",
+    "link"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JudithCortes/cdmx-2018-01-FE-markdown/issues"
+  },
+  "homepage": "https://github.com/JudithCortes/cdmx-2018-01-FE-markdown#readme"
+}
