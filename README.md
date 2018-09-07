@@ -100,33 +100,32 @@ If neither of the arguments is supplied, the tool displays the usage information
 
 ### General
 
-Que sea instalable directamente desde el repositorio de Github
+That is installable directly from the Github repository
 
 - [X] `npm install --global <github-user>/md-links`
 
 ### `README.md`
 
-- [X] Un board (project) con el backlog para la implementación de la librería.
-- [X] Documentación técnica de la librería.
-- [X] Guía de uso e instalación de la librería
+- [X] A board (project) with the backlog for the implementation of the library.
+- [X] Technical documentation of the library.
+- [X] Library use and installation guide.
 
 ### API `mdLinks(path, opts)`
 
-- [ ] El módulo exporta una función con la interfaz (API) esperada.
-- [X] Implementa soporte para archivo individual
-- [ ] Implementa soporte para directorios
-- [X] Implementa `options.validate`
+- [ ] The module exports a function with the expected interface (API).
+- [X] Implement support for individual file
+- [ ] Implement support for directories
+- [X] Implement `options.validate`
 
 ### CLI
 
-- [X] Expone ejecutable `md-links` en el path (configurado en `package.json`)
-- [X] Se ejecuta sin errores / output esperado
-- [X] Implementa `--validate`
-- [X] Implementa `--stats`
-- [X] Implementa `--validate --stats`
+- [X] It exposes executable `md-links` in the path (configured in` package.json`)
+- [X] Runs without errors / expected output
+- [X] Implement `--validate`
+- [X] Implement `--stats`
+- [ ] Implement `--validate --stats`
 
-### Pruebas / tests
+### Tests
 
-- [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
-      lines, y branches.
-- [X] Pasa tests (y linters) (`npm test`).
+- [ ] Unit tests cover a minimum of 70% of statements, functions, lines, and branches.
+- [X] Pass tests (and linters) (`npm test`).
