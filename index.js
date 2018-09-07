@@ -29,21 +29,26 @@ const checkIfPathExist = (absolutePath) => {
   };
 };
 
+// Function to read the file
 const readMarkdownFile = (filePath) => {
   return fs.readFileSync(filePath, 'utf8');
 };
 
+// Function to convert the md file to html
 const convertMdToHtml = (readedFile) => {
   return md.render(readedFile);
 };
 
+// Function to get tags <a> from html file
 const getTags = (htmlFile) => {
   const dom = new JSDOM(htmlFile);
   const linkTags = dom.window.document.getElementsByTagName('a');
   return linkTags;
 };
 
+// Function to get the basic info from each <a> tag
 const getInfoTags = (tagsCollection, absolutePath, links, linkObj) => {
+  // RegExp used to filter <a> that are not https
   const exp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
   Array.from(tagsCollection).forEach(tag => {
     // console.log(`${tag.href} + ${tag.text}`);
@@ -61,16 +66,7 @@ const getInfoTags = (tagsCollection, absolutePath, links, linkObj) => {
   return links;
 };
 
-const findInArray = (array, element) => {
-  let count = 0;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === element) {
-      count++;
-    };
-  };
-  return count;
-};
-
+// Function to calculate unique links
 const calculateUniqueLinks = (links) => {
   const urls = [];
   links.forEach(obj => {
@@ -82,6 +78,7 @@ const calculateUniqueLinks = (links) => {
   return unique.length;
 };
 
+// Function to process the answer and send it to the terminal
 const processAnswer = (basicInfo) => {
   let returnedAnswer = '';
   basicInfo.forEach(element => {
@@ -95,6 +92,7 @@ const printResult = (obj) => {
   return console.log(`${obj.file}  ${obj.href}  ${obj.statusText}   ${obj.status}  ${obj.text}`);
 };
 
+// Function to do a request to each URL
 const doFetch = (basicInfo) => {
   basicInfo.forEach(obj => {
     fetch(obj.href)
@@ -118,6 +116,7 @@ const doFetch = (basicInfo) => {
   });
 };
 
+// Funtion to show the answer when an option is true
 const processAnswerValidate = (basicInfo, options, uniqueLinks) => {
   const total = basicInfo.length;
   if (options.validate === true && options.stats === false) {
@@ -125,13 +124,10 @@ const processAnswerValidate = (basicInfo, options, uniqueLinks) => {
     return 'Found links:';
   } else if (options.validate === false && options.stats === true) {
     return 'Total: ' + total + '\nUnique: ' + uniqueLinks;
-    // return {
-    //   'Total': total,
-    //   'Unique': uniqueLinks
-    // };
   };
 };
 
+// Main function
 const mdLinks = (path, options) => {
   const links = [];
   const linkObj = {};
