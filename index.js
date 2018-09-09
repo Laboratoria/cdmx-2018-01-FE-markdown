@@ -5,41 +5,40 @@ let fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
 
-const callback = (error, data) => {
-  if (error) {
-    console.log('error:', error);
-  } else {
-    // console.log('hola');
+const mdLinks = (path1) =>{
+  let absolutePath = path.resolve(path1);
+  fs.readFile(absolutePath, 'utf8', (error, data) => {
+    if (error) {
+      console.log('error:', error);
+    } else {
     //  we want regex to find "[text] (https://www.)" 
-    let regEx = /\[([^\[\]]*)\]\(((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}))\)/g;
-    //  matchedLinksArray is matching the regex with the specific pieces of data.
-    let matchedRegEx = data.match(regEx);
-    const newArrayFunction = matchedRegEx.map(element => { 
+      let regEx = /\[([^\[\]]*)\]\(((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}))\)/g;
+      //  matchedLinksArray is matching the regex with the specific pieces of data.
+      let matchedRegEx = data.match(regEx);
+      const newArrayFunction = matchedRegEx.map(element => { 
       // split is separating the text and the href//  in que regex we are takind away "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
-      let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
-      let url = splittingElement[2];
-      let urlText = splittingElement[1];
-      // because we need to retun an array of objects, i declared an object that has the obtained elements as values of the href and and the text
-      const object = {
-        href: url,
-        text: urlText,
-        ruta: 'path'
-      };
-      validate(url, urlText);
-      return object;
-    });
-    stats(matchedRegEx);
-    console.log(newArrayFunction);    
-  }
-  // absolutePath();
+        let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
+        let url = splittingElement[2];
+        let urlText = splittingElement[1];
+        // because we need to retun an array of objects, i declared an object that has the obtained elements as values of the href and and the text
+        const object = {
+          href: url,
+          text: urlText,
+          file: absolutePath
+        };
+        validate(url, urlText);
+        return object;
+      });
+      stats(matchedRegEx);
+      console.log(newArrayFunction);    
+    }
+  });
 };
 
-const mdLinks = (path1) => {
-  console.log(path1);
-  let absolutePath = path.resolve(path1);
-  console.log(absolutePath);
-  fs.readFile(absolutePath, 'utf8', callback);
-};
+
+// const mdLinks = (path1) => {
+  
+// };
 
 // function to obtain links' statistics 
 const validate = (url, urlText) =>{
