@@ -1,6 +1,4 @@
-// le dice al sistema que es un archivo ejecutable
-
-// requirig file system module, path module
+// requiring file system module, path module, fetch module 
 let fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
@@ -16,36 +14,32 @@ const mdLinks = (path1) =>{
       //  matchedLinksArray is matching the regex with the specific pieces of data.
       let matchedRegEx = data.match(regEx);
       const newArrayFunction = matchedRegEx.map(element => { 
-      // split is separating the text and the href//  in que regex we are takind away "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
+      // split is separating the text and the href//  in que regex we are taking away "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
         let splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
         let url = splittingElement[2];
         let urlText = splittingElement[1];
-        // because we need to retun an array of objects, i declared an object that has the obtained elements as values of the href and and the text
+        // because i need to retun an array of objects, i´d declare an object with the obtained elements as values of the href and and the text properties
         const object = {
           href: url,
           text: urlText,
           file: absolutePath
         };
-        validate(url, urlText);
+        validate(url, urlText, path1);
         return object;
       });
       stats(matchedRegEx);
-      console.log(newArrayFunction);    
+      // console.log(newArrayFunction);    
     }
   });
 };
 
 
-// const mdLinks = (path1) => {
-  
-// };
-
 // function to obtain links' statistics 
-const validate = (url, urlText) =>{
+const validate = (url, urlText, path1) =>{
   fetch(url).then((res=>{
     let linkStatus = res.status;
     let statusText = res.statusText;
-    // console.log(url, statusText, linkStatus, urlText);
+    console.log(path1, url, statusText, linkStatus, urlText);
   }
   ));
 };
@@ -65,25 +59,12 @@ const stats = (matchedRegEx) =>{
 // Unique : ${counterUnique}`);
 };
 
-
-// const absolutePath = () =>{
-//   let actualPath = path.isAbsolute('./README.md');
-//   if ((actualPath) === false) {
-//     let absolutePath = actualPath.resolve(); 
-//     // console.log(newAbsolutePath);
-//   }
-// };
-
 // process.argv.forEach(function(val, index) {
 //   // console.log(index + ':' + val);
 // });
 
 module.exports = mdLinks; 
 
-
-// let arguments = process.argv;
-// for (let i = 2 ; i < process.argv.length; i++) {
-//   console.log(process.argv[i]);
 // }
 /* readFile, método asíncrono, recibe 3 parámetros. 1 es la ruta del archivo que queremos leer, el segundo es un string con el juego de
      caracteres en el que el archivo está codificado y el 3ro es una callback que se ejecutará en el momento en el que el archivo esta leído
