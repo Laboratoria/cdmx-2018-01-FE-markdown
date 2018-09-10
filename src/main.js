@@ -13,12 +13,28 @@ const path = require('path');
 
 // }
 
-const generateNewArrayUrl = (err,url) => {
-    //console.log(url);
+// const validateUrl = (err,newUrl) => {
+//     console.log(newUrl);
     
+// }
+// console.log(newUrl);
+
+function validate(newUrl){
+   
+    
+    newUrl.forEach(element =>{
+        console.log(element);
+    //   fetch(element).then(function(response){
+    //       console.log(response.status);
+          
+
+      });
+        
+    
+    
+// fetch(newUrl).then(response => console.log(response.status))
+
 }
-
-
 const lineCount = (urlResult) =>{
     let newUrl = []; 
     files.readFile(urlResult,'utf8',(err, data) =>{
@@ -30,13 +46,14 @@ const lineCount = (urlResult) =>{
       const lines = data.split('\n');
       lines.forEach(element => {
       const expresion = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))/g);
-      while(element.match(expresion) !== null){
-        newUrl.push(element.match(expresion));  
-        break; 
-         }        
-      });      
-      console.log(newUrl);
-      generateNewArrayUrl(newUrl)
+      while(element.match(expresion) !== null){  
+        newUrl.push(element.match(expresion));
+        return newUrl;
+         }              
+        }); 
+    //   console.log(newUrl);
+    //   validateUrl(newUrl);
+    validate(newUrl);
        return lines + ' '+'lines'     
     }
     
@@ -66,6 +83,6 @@ validatePath('./src/README.md');
 module.exports = {
     lineCount, 
     validatePath,
-    generateNewArrayUrl
+    validate
 }; 
 

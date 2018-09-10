@@ -2,7 +2,7 @@
   "name": "markdown",
   "version": "1.0.0",
   "description": "Generación de un programa que le archivos md.",
-  "main": "index.js",
+  "main": "cli.js",
   "scripts": {
     "test": "jest"
   },
