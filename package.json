@@ -18,7 +18,7 @@
     "jest": "^23.5.0"
   },
   "scripts": {
-    "eslint": "eslint --ext .js test/",
+    "eslint": "eslint --ext .js ./index.js ./cli.js test/",
     "pretest": "npm run eslint",
     "test": "jest --coverage"
   },
