@@ -22,11 +22,7 @@ const checkPathToAbsolute = (pathToCheck) => {
 
 // Function to check if a path exist
 const checkIfPathExist = (absolutePath) => {
-  if (fs.existsSync(absolutePath)) {
-    return true;
-  } else {
-    return false;
-  };
+  return (!fs.existsSync(absolutePath)) ? false : true;
 };
 
 // Function to read the file
@@ -48,20 +44,15 @@ const getTags = (htmlFile) => {
 
 // Function to get the basic info from each <a> tag
 const getInfoTags = (tagsCollection, absolutePath, links, linkObj) => {
-  // RegExp used to filter <a> that are not https
-  const exp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
   Array.from(tagsCollection).forEach(tag => {
-    // console.log(`${tag.href} + ${tag.text}`);
-    if (tag.href.match(exp)) {
-      linkObj = {
-        href: tag.href,
-        text: tag.text.slice(0, 50),
-        file: absolutePath,
-        status: '',
-        statusText: ''
-      };
-      links.push(linkObj);
-    }
+    linkObj = {
+      href: tag.href,
+      text: tag.text.slice(0, 50),
+      file: absolutePath,
+      status: '',
+      statusText: ''
+    };
+    links.push(linkObj);
   });
   return links;
 };
@@ -98,11 +89,7 @@ const doFetch = (basicInfo) => {
     fetch(obj.href)
       .then((res) => {
         obj.status = res.status;
-        if (res.statusText === 'Not Found') {
-          obj.statusText = 'Fail';
-        } else {
-          obj.statusText = res.statusText;
-        }
+        obj.statusText = (res.statusText === 'Not Found') ? 'Fail' : res.statusText;
         printResult(obj);
       })
       .catch((err) => {
@@ -116,7 +103,7 @@ const doFetch = (basicInfo) => {
   });
 };
 
-// Funtion to show the answer when an option is true
+// Function to show the answer when an option is true
 const processAnswerValidate = (basicInfo, options, uniqueLinks) => {
   const total = basicInfo.length;
   if (options.validate === true && options.stats === false) {
@@ -133,16 +120,20 @@ const mdLinks = (path, options) => {
   const linkObj = {};
 
   const absolutePath = checkPathToAbsolute(path);
-  checkIfPathExist(absolutePath);
-  const readedFile = readMarkdownFile(absolutePath);
-  const convertedFile = convertMdToHtml(readedFile);
-  const tags = getTags(convertedFile);
-  const basicInfo = getInfoTags(tags, path, links, linkObj);
-  const uniqueLinks = calculateUniqueLinks(basicInfo);
-  if (options.validate === false && options.stats === false) {
-    return processAnswer(basicInfo);
-  } else if (options.validate === true || options.stats === true) {
-    return processAnswerValidate(basicInfo, options, uniqueLinks);
+  const fileExist = checkIfPathExist(absolutePath);
+  if (fileExist === false) {
+    return `The file ${absolutePath} don't exist`;
+  } else {
+    const readedFile = readMarkdownFile(absolutePath);
+    const convertedFile = convertMdToHtml(readedFile);
+    const tags = getTags(convertedFile);
+    const basicInfo = getInfoTags(tags, path, links, linkObj);
+    const uniqueLinks = calculateUniqueLinks(basicInfo);
+    if (options.validate === false && options.stats === false) {
+      return processAnswer(basicInfo);
+    } else if (options.validate === true || options.stats === true) {
+      return processAnswerValidate(basicInfo, options, uniqueLinks);
+    }
   }
 };
 

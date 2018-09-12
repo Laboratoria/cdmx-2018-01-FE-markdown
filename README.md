@@ -29,6 +29,12 @@ If the above command fails, try using sudo:
 
     sudo npm link
 
+## Uninstalling
+
+To remove the module globally, run:
+
+    npm uninstall -g CitlalliDMG/md-links
+
 ## API
 
 ### mdLinks(path, options)
