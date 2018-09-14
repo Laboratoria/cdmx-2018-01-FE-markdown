@@ -1,4 +1,4 @@
-// aqui se va a implementar las funciones
+// aqui se va a implementar las funciones// aqui se va a implementar las funciones
 
 const files = require('fs');
 //llamo a la api
@@ -73,7 +73,9 @@ const validatePath = (pathrout)=>{
     }
 }
 
+
 validatePath('./src/README.md');
+
 
  
 
