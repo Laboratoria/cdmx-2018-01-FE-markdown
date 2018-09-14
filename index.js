@@ -22,29 +22,30 @@ const regExFunction = (data) => {
   return matchedRegEx;
 };
 
-// const newArray = (matchedRegEx) =>{
-//   console.log(matchedRegEx);
-// const newArrayFunction = matchedRegEx.map(element => { 
-// //   split is separating the text and the href//  in que regex we are taking away "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
-//   const splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
-//   const url = splittingElement[2];
-//   const urlText = splittingElement[1];
-//   const object = {
-//     href: url,
-//     text: urlText,
-//     file: absolutePath
-//   };
-//   return object;
-// });
-// console.log(newArray);
-// };
+const splitingRegex = (matchedRegEx) =>{
+  const newArrayFunction = matchedRegEx.map(element => { 
+    //   split is separating the text and the href//  in que regex we are taking away "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
+    const splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
+    const url = splittingElement[2];
+    const urlText = splittingElement[1];
+    const object = {
+      href: url,
+      text: urlText,
+      file: absolutePath
+    };
+    return object;
+  });
+  return newArrayFunction;
+  // console.log(newArray); 
+};
 
 
 const mdLinks = (path) =>{
   const absolutePathReturn = gettingPath(path);
-  const perrito = mdFileReader(absolutePathReturn);
-  const gatito = regExFunction(perrito);
-  console.log(gatito);
+  const readMd = mdFileReader(absolutePathReturn);
+  const regexF = regExFunction(readMd);
+  const newArray = splitingRegex(regexF)
+  console.log(newArray);
   
   // newArray(perrito);
 };
