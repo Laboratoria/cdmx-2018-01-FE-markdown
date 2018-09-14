@@ -22,7 +22,7 @@ const regExFunction = (data) => {
   return matchedRegEx;
 };
 
-const splitingRegex = (matchedRegEx) =>{
+const splitingRegex = (matchedRegEx, absolutePathReturn) =>{
   const newArrayFunction = matchedRegEx.map(element => { 
     //   split is separating the text and the href//  in que regex we are taking away "[]" and "()"" because we don't need those characters in our object "  // console.log(splittingElement) will show us 4 elements in each array of the newArray (2 elements are empty spaces).
     const splittingElement = element.split(/\[([^[\]]*)\]\(([^()]*)\)/g);
@@ -31,12 +31,11 @@ const splitingRegex = (matchedRegEx) =>{
     const object = {
       href: url,
       text: urlText,
-      file: absolutePath
+      file: absolutePathReturn
     };
     return object;
   });
   return newArrayFunction;
-  // console.log(newArray); 
 };
 
 
@@ -44,7 +43,7 @@ const mdLinks = (path) =>{
   const absolutePathReturn = gettingPath(path);
   const readMd = mdFileReader(absolutePathReturn);
   const regexF = regExFunction(readMd);
-  const newArray = splitingRegex(regexF)
+  const newArray = splitingRegex(regexF, absolutePathReturn);
   console.log(newArray);
   
   // newArray(perrito);
