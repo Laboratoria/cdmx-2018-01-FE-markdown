@@ -11,21 +11,15 @@ const gettingPath = (path) =>{
 
 const mdFileReader = (absolutePath) =>{
   // console.log(absolutePath);
-  return fs.readFile(absolutePath, 'utf8', regExFunction);
+  return fs.readFileSync(absolutePath, 'utf8');
 };
 
-const regExFunction = (error, data) => {
-  if (error) {
-    console.log('error:', error);
-  } else {
-    //  we want regex to find "[text] (https://www.)" 
-    let regEx = /\[([^\[\]]*)\]\(((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}))\)/g;
-    //  matchedLinksArray is matching the regex with the specific pieces of data.
-    let matchedRegEx = data.match(regEx);
-    // console.log(matchedRegEx);
-    // newArray(matchedRegEx);
-    return matchedRegEx;
-  }
+const regExFunction = (data) => {
+  //  we want regex to find "[text] (https://www.)" 
+  let regEx = /\[([^\[\]]*)\]\(((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}))\)/g;
+  //  matchedLinksArray is matching the regex with the specific pieces of data.
+  let matchedRegEx = data.match(regEx);
+  return matchedRegEx;
 };
 
 // const newArray = (matchedRegEx) =>{
@@ -49,7 +43,9 @@ const regExFunction = (error, data) => {
 const mdLinks = (path) =>{
   const absolutePathReturn = gettingPath(path);
   const perrito = mdFileReader(absolutePathReturn);
-  console.log(perrito);
+  const gatito = regExFunction(perrito);
+  console.log(gatito);
+  
   // newArray(perrito);
 };
 
