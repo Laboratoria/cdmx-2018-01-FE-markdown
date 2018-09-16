@@ -39,14 +39,45 @@ const splitingRegex = (matchedRegEx, absolutePathReturn) =>{
 };
 
 
+// function to obtain links' statistics 
+const validate = (url, urlText, path) =>{
+  fetch(url).then((res=>{
+    let linkStatus = res.status;
+    let statusText = res.statusText;
+    console.log(path, url, statusText, linkStatus, urlText);
+  }
+  ));
+};
+
+// function to obtain total of links and unique links
+const stats = (matchedRegEx) =>{
+  let totalUrls = matchedRegEx.length;
+  let counterUnique = matchedRegEx.length;
+  for (j = 0; j <= matchedRegEx.length; j++) { 
+    for (i = 0; i <= matchedRegEx.length; i++) {
+      if (i !== j && matchedRegEx[j] === matchedRegEx[i] && matchedRegEx[j].length === matchedRegEx[i].length) {
+        counterUnique--;
+      }
+    }
+  }
+  console.log(`Total : ${totalUrls}
+Unique : ${counterUnique}`);
+};
+
+
 const mdLinks = (path) =>{
   const absolutePathReturn = gettingPath(path);
   const readMd = mdFileReader(absolutePathReturn);
   const regexF = regExFunction(readMd);
   const newArray = splitingRegex(regexF, absolutePathReturn);
-  console.log(newArray);
+  console.log(newArray);  
+  if (process.argv[3] === '--validate') {
+    validate(url, urlText, path);
+  }
   
-  // newArray(perrito);
+  if (process.argv[3] === '--stats') {
+    stats(matchedRegEx);
+  }
 };
 
 module.exports = mdLinks;
