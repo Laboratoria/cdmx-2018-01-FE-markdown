@@ -69,7 +69,7 @@ const mdLinks = (path) =>{
   const readMd = mdFileReader(absolutePathReturn);
   const regexF = regExFunction(readMd);
   const newArray = splitingRegex(regexF, absolutePathReturn);
-  if (process.argv[1] === `md-links` && process.argv[2] `${path}`) {
+  if (process.argv[2] === `${path}` && process.argv[3] === undefined) {
     console.log(newArray);
   }
   newArray.forEach(element => {
