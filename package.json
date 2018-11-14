@@ -1,5 +1,5 @@
 {
-  "name": "markdown_list",
+  "name": "md-links",
   "version": "1.0.0",
   "description": "librería que revisa la validez de links dentro de archivos markdown",
   "main": "index.js",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CitlalliDMG/cdmx-2018-01-FE-markdown.git"
+    "url": "git+https://github.com/CitlalliDMG/md-links.git"
   },
   "keywords": [
     "npm",
@@ -38,7 +38,7 @@
   "author": "Citlalli Del Moral",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CitlalliDMG/cdmx-2018-01-FE-markdown/issues"
+    "url": "https://github.com/CitlalliDMG/md-links/issues"
   },
-  "homepage": "https://github.com/CitlalliDMG/cdmx-2018-01-FE-markdown#readme"
+  "homepage": "https://github.com/CitlalliDMG/md-links#readme"
 }
