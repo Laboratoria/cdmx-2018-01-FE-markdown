@@ -1,0 +1,4 @@
+txt version
+Holi Bebesitas, probando carácteres especiales: @MAIL; Ab 1º"Lobish"¿!
+Está leyendo mi archivo .txt, esto no debería suceder.
+[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
